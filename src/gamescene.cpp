@@ -51,6 +51,13 @@ void GameScene::loop()
         handlePlayerInput();
         m_mario->update(elapsedTime, *this);
 //update
+
+        if (m_mario->isDead()) // Ensure this method exists in your Mario class
+        {
+            resetGameScene();
+            return; // Exit early to avoid updating and drawing in the current loop
+        }
+        
         for(int i = 0; i < Block::BLOCKS.size(); ++i)
         {
             Block::BLOCKS.at(i)->update(elapsedTime);

@@ -6,7 +6,7 @@
 #include "enemy.h"
 #include <QGraphicsPixmapItem>
 
-
+//test
 Mario::Mario()
     : m_big(false), m_fliped(false), m_hurt(false), m_dead(false), m_velocityX(0.0f), m_velocityY(0.0f), m_elapsedTime(0.0f), m_onGround(false),
       m_runMode(false), m_crouchning(false), m_collideWithBlock(true)
@@ -191,6 +191,16 @@ void Mario::update(float elapsedTime)
 {
     m_velocityY += GLOBAL::GRAVITY;
     // Drag
+    if (m_onGround)
+    {
+        m_velocityX += -DRAG_VALUE * m_velocityX * elapsedTime;
+
+        if (std::fabs(m_velocityX) < 0.01f)
+        {
+            m_velocityX = 0.0f;
+        }
+    }
+
     if (m_onGround)
     {
         m_velocityX += -DRAG_VALUE * m_velocityX * elapsedTime;
@@ -593,4 +603,9 @@ QRect Mario::hitBox()
         y -= GLOBAL::TILE_SIZE.height();
     }
     return QRect(position().x(), y, GLOBAL::TILE_SIZE.width(), height);
+}
+
+bool Mario::isDead() const
+{
+    return m_dead; // Use your existing logic for Mario's death
 }
