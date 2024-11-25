@@ -7,32 +7,45 @@
     <x>0</x>
     <y>0</y>
     <width>641</width>
-    <height>564</height>
+    <height>433</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">image: url(:/res/gameOver2.png);</string>
+   <string notr="true">QDialog{ image: url(:/res/gameOver3.jpg) };</string>
   </property>
   <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>340</y>
-     <width>83</width>
-     <height>29</height>
+     <x>50</x>
+     <y>220</y>
+     <width>131</width>
+     <height>71</height>
     </rect>
    </property>
-   <property name="autoFillBackground">
-    <bool>true</bool>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{ background: black; color: white; font: 500 10pt &quot;Source Code Pro Medium&quot;};</string>
    </property>
    <property name="text">
-    <string>PushButton</string>
+    <string>Restart</string>
    </property>
-   <property name="checkable">
-    <bool>false</bool>
+  </widget>
+  <widget class="QPushButton" name="pushButton_2">
+   <property name="geometry">
+    <rect>
+     <x>460</x>
+     <y>220</y>
+     <width>131</width>
+     <height>71</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton{ background: black; color: white; font: 500 10pt &quot;Source Code Pro Medium&quot;};</string>
+   </property>
+   <property name="text">
+    <string>Quit</string>
    </property>
   </widget>
  </widget>
