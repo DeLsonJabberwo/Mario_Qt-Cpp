@@ -7,7 +7,7 @@
         <file>res/coin16x16.png</file>
         <file>res/sketch_world1-1.png</file>
         <file>res/sketch_test.png</file>
-        <file>res/gameOver2.png</file>
         <file>res/gameOver3.jpg</file>
+        <file>res/endScreen1.jpg</file>
     </qresource>
 </RCC>
