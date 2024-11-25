@@ -34,3 +34,10 @@ SOURCES += \
 
 RESOURCES += \
     resources.qrc
+
+FORMS += \
+    EndScreen.ui \
+    RestartScreen.ui
+
+DISTFILES += \
+    res/gameOver.png
