@@ -244,6 +244,7 @@ void Mario::update(float elapsedTime, GameScene &scene)
                                 scene.keys(GLOBAL::SPACE_KEY)->m_held;
         bool crouchingPressed = scene.keys(GLOBAL::S_KEY)->m_held ||
                                 scene.keys(GLOBAL::DOWN_ARROW_KEY)->m_held;
+        bool sprintingPressed = scene.keys(GLOBAL::SHIFT_KEY)->m_held;
 
         if(leftPressed)
         {
@@ -289,6 +290,14 @@ void Mario::update(float elapsedTime, GameScene &scene)
         else
         {
             m_crouchning = false;
+        }
+        if(sprintingPressed && (rightPressed || leftPressed))
+        {
+            m_runMode = true;
+        }
+        else
+        {
+            m_runMode = false;
         }
     }
 

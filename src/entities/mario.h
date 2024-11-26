@@ -12,11 +12,11 @@ class Mushroom;
 class Mario : public Entity {
 public:
     static constexpr const float MOVE_SPEED         = 20.0f;
-    static constexpr const float RUN_SPEED          = 12.0f;
+    static constexpr const float RUN_SPEED          = 30.0f;
     static constexpr const float JUMP_SPEED         = 450.0f;
     static constexpr const float DRAG_VALUE         = 2.0f;
     static constexpr const float MAX_MOVE_SPEED     = 150.0f;
-    static constexpr const float MAX_RUN_SPEED      = 12.0f;
+    static constexpr const float MAX_RUN_SPEED      = 225.0f;
     static constexpr const float MAX_FALLDOWN_SPEED = 350.0f;
     static constexpr const float HURT_TIMER         = 2.f;
     static constexpr const float DEAD_TIMER         = 1.5f;
