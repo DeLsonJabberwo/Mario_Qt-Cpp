@@ -244,6 +244,7 @@ void Mario::update(float elapsedTime, GameScene &scene)
                                 scene.keys(GLOBAL::SPACE_KEY)->m_held;
         bool crouchingPressed = scene.keys(GLOBAL::S_KEY)->m_held ||
                                 scene.keys(GLOBAL::DOWN_ARROW_KEY)->m_held;
+        /* 2024-11-25 PDH: mapped shift to sprint bool */
         bool sprintingPressed = scene.keys(GLOBAL::SHIFT_KEY)->m_held;
 
         if(leftPressed)
@@ -291,6 +292,7 @@ void Mario::update(float elapsedTime, GameScene &scene)
         {
             m_crouchning = false;
         }
+        /* 2024-11-25 PDH: logic for run mode with shift key */
         if(sprintingPressed && (rightPressed || leftPressed))
         {
             m_runMode = true;
