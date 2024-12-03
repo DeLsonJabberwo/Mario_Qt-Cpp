@@ -91,8 +91,11 @@ static constexpr const int ENTER_KEY       = 9;
 static constexpr const int R_KEY           = 10;
 static constexpr const int Z_KEY           = 11;
 
+/* 2024-11-25 PDH: added shift key */
+static constexpr const int SHIFT_KEY       = 12;
 
-static constexpr const int COUNT_OF_KEYS   = 12;
+
+static constexpr const int COUNT_OF_KEYS   = 13;
 
 static const QMap<int, int> KeysMapper =
 {
@@ -108,7 +111,9 @@ static const QMap<int, int> KeysMapper =
     {static_cast<int>(Qt::Key_Enter), ENTER_KEY},
     {static_cast<int>(Qt::Key_Return),ENTER_KEY},
     {static_cast<int>(Qt::Key_R),     R_KEY},
-    {static_cast<int>(Qt::Key_Z),     Z_KEY}
+    {static_cast<int>(Qt::Key_Z),     Z_KEY},
+    /* 2024-11-25 PDH: mapped shift key */
+    {static_cast<int>(Qt::Key_Shift), SHIFT_KEY}
 };
 }
 
