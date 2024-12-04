@@ -22,6 +22,7 @@ public:
     static constexpr const float MAX_FALLDOWN_SPEED = 350.0f;
     static constexpr const float HURT_TIMER         = 2.f;
     static constexpr const float DEAD_TIMER         = 1.5f;
+    static constexpr const float FRICTION_VALUE     = 5.0f; //12-03-2024 DS: Created and assigned a value to friction
     Mario();
 public:
     virtual void draw(GameScene &scene) override;
@@ -51,6 +52,7 @@ private:
     QRect hitBox();
     QPixmap m_texture;
     float m_velocityX, m_velocityY;
+    float m_positionX, m_positionY;
     float m_elapsedTime;
     float m_hurtTimer;
     float m_deadTimer;
