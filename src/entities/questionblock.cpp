@@ -101,16 +101,21 @@ void QuestionBlock::update(float elapsedTime)
         }
     }
 }
-
+int QuestionBlock::CoinCount = 0;
 void QuestionBlock::deactivate()
 {
     m_activate = false;
-    if(!m_coinParticle)
+    if (m_type == QuestionBlock::Type::Coin) // Ensure it's a coin block
+    {
+        ++CoinCount; // Increment the coin counter
+    }
+
+    if (!m_coinParticle)
     {
         float TW = GLOBAL::TILE_SIZE.width();
-        m_coinParticle = new Particle(position().x(), position().y()-TW, 0, -COIN_SPEED);
+        m_coinParticle = new Particle(position().x(), position().y() - TW, 0, -COIN_SPEED);
         m_coinParticle->setAnimator(m_coinAnimation);
-        m_coinParticle->setMinYValue(m_coinParticle->position().y() - 4*TW);
+        m_coinParticle->setMinYValue(m_coinParticle->position().y() - 4 * TW);
     }
 }
 

@@ -204,3 +204,26 @@ void GameScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     m_mouse->m_released = true;
     QGraphicsScene::mouseReleaseEvent(event);
 }
+
+void GameScene::drawCoinCount()
+{
+    // Remove existing coin count text if already present (optional)
+    QList<QGraphicsItem*> items = this->items();
+    for (QGraphicsItem* item : items)
+    {
+        QGraphicsTextItem* textItem = dynamic_cast<QGraphicsTextItem*>(item);
+        if (textItem && textItem->toPlainText().startsWith("Coins:"))
+        {
+            this->removeItem(item);
+            delete item;
+        }
+    }
+
+    // Create and display the coin count text
+    QGraphicsTextItem* coinText = new QGraphicsTextItem();
+    coinText->setPlainText(QString("Coins: %1").arg(QuestionBlock::CoinCount));
+    coinText->setDefaultTextColor(Qt::yellow);
+    coinText->setFont(QFont("Arial", 16));
+    coinText->setPos(10, 10); // Position in the top-left corner
+    addItem(coinText);
+}

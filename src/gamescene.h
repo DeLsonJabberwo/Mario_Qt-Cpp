@@ -28,6 +28,7 @@ class GameScene : public QGraphicsScene
 public:
     explicit GameScene(QObject *parent = nullptr);
     KeyStatus* keys(int keyCode);
+    void drawCoinCount();
 signals:
 
 private slots:

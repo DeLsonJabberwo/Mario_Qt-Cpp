@@ -21,7 +21,7 @@ public:
     void deactivate();
     bool isActivate();
     void setType(Type type);
-
+     static int CoinCount; // Static variable for coin count
 private:
     static QList<QuestionBlock*> QUESTION_BLOCKS;
     void createCoinAnimation();
