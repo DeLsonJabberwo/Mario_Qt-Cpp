@@ -191,13 +191,21 @@ void Mario::update(float elapsedTime)
 {
     m_velocityY += GLOBAL::GRAVITY;
     // Drag
-    if (m_onGround)
+    if (m_onGround && !m_runMode)
     {
-        m_velocityX += -DRAG_VALUE * m_velocityX * elapsedTime;
-
-        if (std::fabs(m_velocityX) < 0.01f)
+        if (std::fabs(m_velocityX) > 0.0f)
         {
-            m_velocityX = 0.0f;
+            float frictionEffect = FRICTION_VALUE * elapsedTime;
+
+            // Apply friction symmetrically
+            if (m_velocityX > 0) // Moving right
+            {
+                m_velocityX = std::max(0.0f, m_velocityX - frictionEffect);
+            }
+            else if (m_velocityX < 0) // Moving left
+            {
+                m_velocityX = std::min(0.0f, m_velocityX + frictionEffect);
+            }
         }
     }
     clampVelocities(elapsedTime);
