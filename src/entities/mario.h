@@ -32,6 +32,7 @@ public:
     bool isBig() const;
     void resetStatus();
     void setMaxX(int maxX);
+    bool isDead() const;
 private:
     void clampVelocities(float elapsedTime);
     void checkCollisionWithBlocks();

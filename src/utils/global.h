@@ -22,7 +22,18 @@ enum CELL_TYPE{
     Wall0,
     Wall1,
     QuestionBlock0,
-    QuestionBlock0M
+    QuestionBlock0M,
+    /* 2024-12-06 KGD: Created cell types that are used to create the game flag*/
+    Flag,
+    TopFlag,
+    TopMFlag,
+    TopLFlag,
+    MidFlag,
+    MidMFlag,
+    MidLFlag,
+    BottomFlag,
+    MBottomFlag,
+    LBottomFlag
 };
 
 static QString cellTypeToString(CELL_TYPE t)
@@ -42,6 +53,12 @@ static QString cellTypeToString(CELL_TYPE t)
     else if(t == Wall1)
     {
         return QString("Wall1");
+    }
+    /* 2024-12-06 KGD: if cell type is equal to flag, returns qstring value, may not need*/
+
+    else if(t == Flag)
+    {
+        return QString("Flag");
     }
     else
     {
