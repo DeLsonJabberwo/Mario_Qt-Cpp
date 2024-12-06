@@ -91,8 +91,9 @@ static constexpr const int ENTER_KEY       = 9;
 static constexpr const int R_KEY           = 10;
 static constexpr const int Z_KEY           = 11;
 
-
 static constexpr const int COUNT_OF_KEYS   = 12;
+
+static constexpr const int P_KEY           = 13;  //NAC: New P key constant for the pause function
 
 static const QMap<int, int> KeysMapper =
 {
@@ -108,7 +109,8 @@ static const QMap<int, int> KeysMapper =
     {static_cast<int>(Qt::Key_Enter), ENTER_KEY},
     {static_cast<int>(Qt::Key_Return),ENTER_KEY},
     {static_cast<int>(Qt::Key_R),     R_KEY},
-    {static_cast<int>(Qt::Key_Z),     Z_KEY}
+    {static_cast<int>(Qt::Key_Z),     Z_KEY},
+    {static_cast<int>(Qt::Key_P),     P_KEY}   // NAC: Mapping the P key
 };
 }
 
