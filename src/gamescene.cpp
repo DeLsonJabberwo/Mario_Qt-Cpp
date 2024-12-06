@@ -30,7 +30,9 @@ GameScene::GameScene(QObject *parent)
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
     m_timer.start(int(1000.0f/FPS));
     m_elapsedTimer.start();
-
+    /* 2024-12-06 PDH: start level timer */
+    connect(&level_timer, &QTimer::timeout, this, &GameScene::level_timing);
+    level_timer.start(400);
 }
 
 KeyStatus *GameScene::keys(int keyCode)
@@ -104,6 +106,15 @@ void GameScene::loop()
         //reset key/mouse status, reset frame counter
         resetKeyStatus();
         m_loopTime -= m_loopSpeed;
+    }
+}
+
+/* 2024-12-06 PDH: define level_timer */
+void GameScene::level_timing() {
+    level_countdown--;
+    if (level_countdown <= 0) {
+        m_mario->setHurt();
+        m_mario->setHurt();
     }
 }
 

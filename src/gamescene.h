@@ -32,6 +32,8 @@ signals:
 
 private slots:
     void loop();
+    /* 2024-12-06 PDH: declare timer slot */
+    void level_timing();
 
 private:
     void handlePlayerInput();
@@ -45,6 +47,9 @@ private:
 
     const int FPS = 60;
     QTimer m_timer;
+    /* 2024-12-06 PDH: declare level_timer timer and in-game countdown */
+    QTimer level_timer;
+    int level_countdown = 400;
     QElapsedTimer m_elapsedTimer;
     float m_deltaTime = 0.0f, m_loopTime = 0.0f;
     const float m_loopSpeed;

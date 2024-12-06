@@ -31,6 +31,8 @@ public:
     bool isBig() const;
     void resetStatus();
     void setMaxX(int maxX);
+    /* 2024-12-06 PDH: moved setHurt() from private to public */
+    void setHurt();
 private:
     void clampVelocities(float elapsedTime);
     void checkCollisionWithBlocks();
@@ -47,7 +49,6 @@ private:
     void handleHurtCounter(float elapsedTime);
     void handleDeadCounter(float elapsedTime);
     bool m_big, m_fliped, m_hurt, m_dead;
-    void setHurt();
     QRect hitBox();
     QPixmap m_texture;
     float m_velocityX, m_velocityY;
