@@ -53,6 +53,16 @@ void GameScene::loop()
         handlePlayerInput();
         m_mario->update(elapsedTime, *this);
 //update
+
+        if (m_mario->isDead()) 
+        {
+            //call the key pressed event handler handlePlayerInput instead of the resetGameScene
+            m_keys[GLOBAL::R_KEY]->m_released = true;
+            handlePlayerInput();
+            //resetGameScene();
+            return; 
+        }
+        
         for(int i = 0; i < Block::BLOCKS.size(); ++i)
         {
             Block::BLOCKS.at(i)->update(elapsedTime);
