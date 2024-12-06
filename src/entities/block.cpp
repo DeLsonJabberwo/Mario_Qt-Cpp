@@ -1,4 +1,6 @@
 #include "block.h"
+/* 2024-12-06 KGD: Added flag.h may not need*/
+#include "Flag.h"
 #include "questionblock.h"
 #include "brick.h"
 #include "../utils/mapmanager.h"
@@ -34,6 +36,13 @@ void Block::CreateBlock(GLOBAL::CELL_TYPE cType, QPointF mapPosition)
     {
         Brick::createBrick(mapPosition);
     }
+    /* 2024-12-06 KGD: Created to determine if celltype is a flag and fi so then creates flag*/
+    /*
+    else if(cType == GLOBAL::Flag)
+    {
+        Flag::createFlag(mapPosition);
+    }
+*/
     else
     {
         Block* block = new Block();

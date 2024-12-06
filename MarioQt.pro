@@ -3,6 +3,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 HEADERS += \
     end_screen.h \
     restart_screen.h \
+    src/entities/Flag.h \
     src/entities/block.h \
     src/entities/brick.h \
     src/entities/enemy.h \
@@ -21,6 +22,7 @@ HEADERS += \
 SOURCES += \
     end_screen.cpp \
     restart_screen.cpp \
+    src/entities/Flag.cpp \
     src/entities/block.cpp \
     src/entities/brick.cpp \
     src/entities/enemy.cpp \
