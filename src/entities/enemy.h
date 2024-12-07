@@ -6,7 +6,9 @@ class Enemy : public Entity
 {
 public:
     enum class Type{
-        None, Goomba
+        None, Goomba,
+        /* 2024-12-06 KGD: added enum class for flagEntity*/
+        one, flagEntity
     };
     Enemy(float x, float y);
     virtual ~Enemy();

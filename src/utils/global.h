@@ -33,7 +33,10 @@ enum CELL_TYPE{
     MidLFlag,
     BottomFlag,
     MBottomFlag,
-    LBottomFlag
+    LBottomFlag,
+    /* 2024-12-06 KGD: Created cell types that are used to create the wall barrier/kill method before the game flag*/
+    FlagEntity,
+    entity
 };
 
 static QString cellTypeToString(CELL_TYPE t)
@@ -53,12 +56,6 @@ static QString cellTypeToString(CELL_TYPE t)
     else if(t == Wall1)
     {
         return QString("Wall1");
-    }
-    /* 2024-12-06 KGD: if cell type is equal to flag, returns qstring value, may not need*/
-
-    else if(t == Flag)
-    {
-        return QString("Flag");
     }
     else
     {
