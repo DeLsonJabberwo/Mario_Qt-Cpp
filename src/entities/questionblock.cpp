@@ -1,7 +1,9 @@
 #include "questionblock.h"
 #include "mushroom.h"
+
 #include <QGraphicsPixmapItem>
 #include <QList>
+#include <QDebug>
 
 QList<QuestionBlock*> QuestionBlock::QUESTION_BLOCKS;
 
@@ -23,12 +25,13 @@ QuestionBlock::~QuestionBlock()
     }
 }
 
-void QuestionBlock::CreateQuestionBlock(QPointF position, Type type)
+void QuestionBlock::CreateQuestionBlock(QPointF position, Type type, GameScene* gameScene)
 {
     QuestionBlock* questionBlock = new QuestionBlock();
     questionBlock->setType(type);
     questionBlock->setPosition(position);
-}
+    connect(questionBlock, &QuestionBlock::coinCollected, gameScene, &GameScene::incrementCoinCount);
+    }
 
 void QuestionBlock::UpdateQuestionBlocks(float elapsedTime)
 {
@@ -103,11 +106,13 @@ void QuestionBlock::update(float elapsedTime)
 }
 int QuestionBlock::CoinCount = 0;
 void QuestionBlock::deactivate()
-{
+{ qDebug() << "Attempting to cast scene to GameScene...";
     m_activate = false;
-    if (m_type == QuestionBlock::Type::Coin) // Ensure it's a coin block
-    {
-        ++CoinCount; // Increment the coin counter
+
+    if (m_type == QuestionBlock::Type::Coin) {
+        CoinCount++;
+        emit coinCollected();
+    qDebug() << "Coin collected! Total coins:" << CoinCount;
     }
 
     if (!m_coinParticle)
@@ -118,6 +123,7 @@ void QuestionBlock::deactivate()
         m_coinParticle->setMinYValue(m_coinParticle->position().y() - 4 * TW);
     }
 }
+
 
 bool QuestionBlock::isActivate()
 {

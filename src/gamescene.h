@@ -6,6 +6,7 @@
 #include <QTimer>
 #include "utils/mapmanager.h"
 #include "utils/global.h"
+#include "utils/uimanager.h"
 //#include "entities/mario.h"
 class Mario;
 struct KeyStatus
@@ -26,11 +27,14 @@ class GameScene : public QGraphicsScene
 {
     Q_OBJECT
 public:
-    explicit GameScene(QObject *parent = nullptr);
-    KeyStatus* keys(int keyCode);
-    void drawCoinCount();
-signals:
+    GameScene(QObject* parent = nullptr);
 
+    KeyStatus* keys(int keyCode);
+
+
+signals:
+public slots:
+    void incrementCoinCount();
 private slots:
     void loop();
 

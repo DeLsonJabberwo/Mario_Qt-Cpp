@@ -9,13 +9,29 @@
 #include "entities/questionblock.h"
 #include "entities/mushroom.h"
 #include "entities/enemy.h"
-
+#include <QDebug>
+#include <QMediaPlayer>
+#include <QAudioOutput>
+#include <QCoreApplication>
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(parent), m_mostRightX(200000),
       m_loopSpeed(int(1000.0f/GLOBAL::FPS))
 {
 
+    : QGraphicsScene(parent), backgroundMusic(nullptr), uiManager(nullptr),
+    m_mostRightX(200000), m_loopSpeed(int(1000.0f/GLOBAL::FPS)){
+
+    setSceneRect(0, 0, 800, 600);  // Ensure scene rect is set
+
+    // Add test text to confirm the scene is working
+    QGraphicsTextItem* testText = new QGraphicsTextItem("Test Text: Scene Active");
+    testText->setDefaultTextColor(Qt::green);
+    testText->setFont(QFont("Arial", 16));
+    testText->setPos(10, 50);  // Place below the coin counter
+    addItem(testText);
+
+    qDebug() << "GameScene initialized. Scene rect:" << sceneRect();
     m_mapManager.updateMapSketch(0);
     m_mapManager.convertFromSketch(0);
     m_mostRightX = float(m_mapManager.getMapSketchWidth()*GLOBAL::TILE_SIZE.width()-GLOBAL::SCREEN_SIZE.width());
@@ -205,25 +221,10 @@ void GameScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     QGraphicsScene::mouseReleaseEvent(event);
 }
 
-void GameScene::drawCoinCount()
-{
-    // Remove existing coin count text if already present (optional)
-    QList<QGraphicsItem*> items = this->items();
-    for (QGraphicsItem* item : items)
-    {
-        QGraphicsTextItem* textItem = dynamic_cast<QGraphicsTextItem*>(item);
-        if (textItem && textItem->toPlainText().startsWith("Coins:"))
-        {
-            this->removeItem(item);
-            delete item;
-        }
-    }
-
-    // Create and display the coin count text
-    QGraphicsTextItem* coinText = new QGraphicsTextItem();
-    coinText->setPlainText(QString("Coins: %1").arg(QuestionBlock::CoinCount));
-    coinText->setDefaultTextColor(Qt::yellow);
-    coinText->setFont(QFont("Arial", 16));
-    coinText->setPos(10, 10); // Position in the top-left corner
-    addItem(coinText);
+void GameScene::incrementCoinCount() {
+    QuestionBlock::CoinCount++;
+    uiManager->updateCoinCount(QuestionBlock::CoinCount); // Update the UI
+    qDebug() << "Coin count updated to:" << QuestionBlock::CoinCount;
 }
+
+

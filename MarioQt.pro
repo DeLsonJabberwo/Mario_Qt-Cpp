@@ -1,5 +1,7 @@
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
+QT += multimedia
+
 HEADERS += \
     src/entities/block.h \
     src/entities/brick.h \
@@ -14,6 +16,7 @@ HEADERS += \
     src/utils/animator.h \
     src/utils/global.h \
     src/utils/mapmanager.h \
+    src/utils/uimanager.h \
     src/view.h
 
 SOURCES += \
@@ -30,6 +33,7 @@ SOURCES += \
     src/main.cpp \
     src/utils/animator.cpp \
     src/utils/mapmanager.cpp \
+    src/utils/uimanager.cpp \
     src/view.cpp
 
 RESOURCES += \

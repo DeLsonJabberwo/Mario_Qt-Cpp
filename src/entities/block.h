@@ -1,9 +1,10 @@
 #ifndef BLOCK_H
 #define BLOCK_H
 #include "entity.h"
-
-class Block : public Entity
+#include <QObject>
+class Block : public QObject, public Entity
 {
+    Q_OBJECT
 public:
     Block();
     ~Block();

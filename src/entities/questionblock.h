@@ -3,9 +3,10 @@
 #include "block.h"
 #include "../utils/animator.h"
 #include "particle.h"
-
+class GameScene;  // Forward declaration
 class QuestionBlock : public Block
 {
+    Q_OBJECT
 public:
     enum class Type{
         None, Coin, PowerSupply, LifeMushroom
@@ -13,7 +14,7 @@ public:
     QuestionBlock();
     ~QuestionBlock();
     static void CreateQuestionBlock(QPointF position,
-                                    QuestionBlock::Type type=QuestionBlock::Type::Coin);
+                                    QuestionBlock::Type type=QuestionBlock::Type::Coin, GameScene* gameScene = nullptr);
     static void UpdateQuestionBlocks(float elapsedTime);
     static constexpr const float COIN_SPEED         = 160.0f;
     virtual void draw(GameScene &scene) override;
@@ -22,6 +23,10 @@ public:
     bool isActivate();
     void setType(Type type);
      static int CoinCount; // Static variable for coin count
+
+signals:
+    void coinCollected();
+
 private:
     static QList<QuestionBlock*> QUESTION_BLOCKS;
     void createCoinAnimation();
@@ -34,5 +39,7 @@ private:
 
     Type m_type;
 };
+
+
 
 #endif // QUESTIONBLOCK_H
