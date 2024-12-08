@@ -5,6 +5,7 @@
 #include "mushroom.h"
 #include "enemy.h"
 #include <QGraphicsPixmapItem>
+#include "src/view.h"
 
 //test
 Mario::Mario()
@@ -484,6 +485,14 @@ void Mario::collideWithEnemy(Enemy *enemy)
     float CollideY;
     float shrinkPixel = 5.f, shrinkFactor = 0.9f;//For one tile row, column to avoid block
 
+    // if (enemy->getType() == Enemy::Type::flagEntity)
+    // {
+    //     // Trigger the custom action for flagEntity (e.g., game over sequence)
+    //     //triggerEndScreen();
+    //     // No need to proceed with further collision logic for flagEntity
+    //     qDebug()<<"Hit flag";
+    //     return;
+    // }
     //X-axis
     if (m_velocityX <= 0.0f) // Moving Left
     {
@@ -492,7 +501,14 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(CollideX, position().y()+hitBox().height()))
         {
-            if(enemy->isAlive() && !m_hurt)
+            if (enemy->getType() == Enemy::Type::flagEntity)
+            {
+                // Trigger the custom action for flagEntity (e.g., game over sequence)
+                //triggerEndScreen();
+                // No need to proceed with further collision logic for flagEntity
+                //qDebug()<<"Hit flag";
+                return;
+            }else if(enemy->isAlive() && !m_hurt)
             {
                 setHurt();
             }
@@ -506,7 +522,14 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(CollideX, position().y()+hitBox().height()))
         {
-            if(enemy->isAlive() && !m_hurt)
+            if (enemy->getType() == Enemy::Type::flagEntity)
+            {
+                // Trigger the custom action for flagEntity (e.g., game over sequence)
+                triggerEndScreen();
+                // No need to proceed with further collision logic for flagEntity
+                //qDebug()<<"Hit flag";
+                return;
+            }else if(enemy->isAlive() && !m_hurt)
             {
                 setHurt();
             }
@@ -520,7 +543,14 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(position().x()+shrinkFactor*hitBox().width() , CollideY))
         {
-            if(enemy->isAlive()&& !m_hurt)
+            if (enemy->getType() == Enemy::Type::flagEntity)
+            {
+                // Trigger the custom action for flagEntity (e.g., game over sequence)
+                //triggerEndScreen();
+                // No need to proceed with further collision logic for flagEntity
+                //qDebug()<<"Hit flag";
+                return;
+            }else if(enemy->isAlive()&& !m_hurt)
             {
                 setHurt();
             }
@@ -540,6 +570,7 @@ void Mario::collideWithEnemy(Enemy *enemy)
             }
         }
     }
+
 }
 
 void Mario::setAnimatationState(QString state)
@@ -608,4 +639,13 @@ QRect Mario::hitBox()
 bool Mario::isDead() const
 {
     return m_dead; // Use your existing logic for Mario's death
+}
+
+
+void Mario::triggerEndScreen()
+{
+    View vw;
+    // Example: Triggering game-over actions
+    vw.callThis();
+    // Or any other custom logic specific to the flagEntity
 }

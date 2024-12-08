@@ -18,6 +18,9 @@ public:
     static void CreateEnemy(Type type, QPointF position);
     void setAlive(bool on);
     bool isAlive() const;
+
+    /* 2024-12-07 NAC: added getType so that this has a different action on collision*/
+    virtual Type getType() const = 0;
 private:
     bool m_isAlive;
 };

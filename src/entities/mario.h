@@ -30,6 +30,8 @@ public:
     void resetStatus();
     void setMaxX(int maxX);
     bool isDead() const;
+    void triggerEndScreen();
+
 private:
     void clampVelocities(float elapsedTime);
     void checkCollisionWithBlocks();

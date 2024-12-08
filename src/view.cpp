@@ -12,6 +12,7 @@ View::View()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 }
 
+
 void View::keyReleaseEvent(QKeyEvent *event)
 {
     if(event->key() == Qt::Key_Escape)
@@ -20,3 +21,16 @@ void View::keyReleaseEvent(QKeyEvent *event)
     }
     QGraphicsView::keyReleaseEvent(event);
 }
+
+void View::triggerKeyReleaseEvent(Qt::Key key)
+{
+    QKeyEvent event(QEvent::KeyRelease, key, Qt::NoModifier);
+    keyReleaseEvent(&event); 
+}
+
+void View::callThis()
+{
+    QKeyEvent *event = new QKeyEvent(QEvent::KeyRelease, Qt::Key_Escape, Qt::NoModifier);
+    QApplication::postEvent(this, event);
+}
+

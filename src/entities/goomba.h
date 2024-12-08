@@ -19,6 +19,9 @@ public:
     void collideWithBlock(Block* block);
     void checkCollisonWithEnemies();
     void collideWithEnemy(Enemy* enemy);
+
+    Type getType() const override;// NAC added this 
+
 private:
     void createAnimation();
     void setAnimation(QString state);
@@ -48,6 +51,9 @@ public:
     void collideWithBlock(Block* block);
     void checkCollisonWithEnemies();
     void collideWithEnemy(Enemy* enemy);
+
+    Type getType() const override;// NAC added thi
+
 private:
     void createAnimation();
     void setAnimation(QString state);

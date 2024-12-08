@@ -203,6 +203,12 @@ int Goomba::direction() const
     }
 }
 
+/*NAC: */
+Enemy::Type Goomba::getType() const {
+    return Enemy::Type::Goomba;
+}
+
+
 /*2024-12-06 KGD: Copied the Goomba code and changed it to flagEntity to create a wall of entitys that kills mario
  *  at the flag so that the gameover screen can be called. Also commented out unnessecary code, but did not delete just
  *  in case needed */
@@ -406,4 +412,10 @@ int flagEntity::direction() const
     {
         return -1;
     }
+}
+
+
+/* 2024-12-07 NAC: added getType so that this has a different action on collision*/
+Enemy::Type flagEntity::getType() const {
+    return Enemy::Type::flagEntity;
 }
