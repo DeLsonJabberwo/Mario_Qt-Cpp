@@ -22,7 +22,18 @@ const QMap<QRgb, QPoint> MapManager::colorToPointOfSpriteMap={
     {qRgb(215, 215, 215), QPoint(8 , 1 )},
     {qRgb(205, 205, 205), QPoint(9 , 1 )},
     {qRgb(255, 73 ,  85), QPoint(12, 1 )},
-    {qRgb(167, 37 ,  45), QPoint(12, 0 )}
+    {qRgb(167, 37 ,  45), QPoint(12, 0 )},
+    /* 2024-12-06 KGD: Created color points that when the pixel map has said color it will display the image from FinalMapItems16x16 in that spot*/
+    {qRgb(100, 100, 255), QPoint(3, 1 )},
+    {qRgb(0,  183, 239), QPoint(7, 2 )},
+    {qRgb(153, 217, 234), QPoint(8, 2 )},
+    {qRgb(84,  109, 142), QPoint(9, 2 )},
+    {qRgb(49,  107,   125), QPoint(9, 3 )},
+    {qRgb(74,  162,   189), QPoint(8, 3 )},
+    {qRgb(124,  187,   207), QPoint(7, 3 )},
+    {qRgb(47,  54,   153), QPoint(6, 2 )},
+    {qRgb(112,  154,   209), QPoint(5, 2 )},
+    {qRgb(10,  43,   51), QPoint(4, 2 )}
 };
 
 const QMap<QRgb, GLOBAL::CELL_TYPE> MapManager::colorToCellMap=
@@ -36,7 +47,18 @@ const QMap<QRgb, GLOBAL::CELL_TYPE> MapManager::colorToCellMap=
     {qRgb(255, 73 ,  85), GLOBAL::CELL_TYPE::QuestionBlock0M        },//MushRoom
     {qRgb(255, 146,  85), GLOBAL::CELL_TYPE::QuestionBlock0         },
     {qRgb(  0,   0,   0), GLOBAL::CELL_TYPE::Wall0                  },
-    {qRgb(146,  73,   0), GLOBAL::CELL_TYPE::Wall1                  }
+    {qRgb(146,  73,   0), GLOBAL::CELL_TYPE::Wall1                  },
+    /* 2024-12-06 KGD: Created color points that will be used to determine where each flag image should go */
+    {qRgb(10,  183,   239), GLOBAL::CELL_TYPE::Flag                 },
+    {qRgb(0,  183,   239), GLOBAL::CELL_TYPE::TopFlag                 },
+    {qRgb(153,  217,   234), GLOBAL::CELL_TYPE::TopMFlag                 },
+    {qRgb(84,  109,   142), GLOBAL::CELL_TYPE::TopLFlag                 },
+    {qRgb(49,  107,   125), GLOBAL::CELL_TYPE::MidFlag                 },
+    {qRgb(74,  162,   189), GLOBAL::CELL_TYPE::MidMFlag                 },
+    {qRgb(124,  187,   207), GLOBAL::CELL_TYPE::MidLFlag                 },
+    {qRgb(47,  54,   153), GLOBAL::CELL_TYPE::BottomFlag                 },
+    {qRgb(112,  154,   209), GLOBAL::CELL_TYPE::MBottomFlag                 },
+    {qRgb(10,  43,   51), GLOBAL::CELL_TYPE::LBottomFlag                 }
 };
 
 const QMap<GLOBAL::CELL_TYPE, QPoint> MapManager::cellToPointOfSpriteMap=
@@ -50,7 +72,17 @@ const QMap<GLOBAL::CELL_TYPE, QPoint> MapManager::cellToPointOfSpriteMap=
     {GLOBAL::CELL_TYPE::QuestionBlock0,          QPoint(6 , 1)},
     {GLOBAL::CELL_TYPE::QuestionBlock0M,          QPoint(6 , 1)},
     {GLOBAL::CELL_TYPE::Wall0,                  QPoint(2 , 0)},
-    {GLOBAL::CELL_TYPE::Wall1,                  QPoint(3 , 0)}
+    {GLOBAL::CELL_TYPE::Wall1,                  QPoint(3 , 0)},
+    {GLOBAL::CELL_TYPE::Flag,                  QPoint(6 , 2)},
+    {GLOBAL::CELL_TYPE::TopFlag,                  QPoint(9 , 2)},
+    {GLOBAL::CELL_TYPE::TopLFlag,                  QPoint(7 , 2)},
+    {GLOBAL::CELL_TYPE::TopMFlag,                  QPoint(8 , 2)},
+    {GLOBAL::CELL_TYPE:: MidFlag,                  QPoint(9 , 3)},
+    {GLOBAL::CELL_TYPE::MidMFlag,                  QPoint(8 , 3)},
+    {GLOBAL::CELL_TYPE::MidLFlag,                  QPoint(7 , 3)},
+    {GLOBAL::CELL_TYPE::BottomFlag,                  QPoint(6 , 2)},
+    {GLOBAL::CELL_TYPE::MBottomFlag,                  QPoint(5 , 2)},
+    {GLOBAL::CELL_TYPE::LBottomFlag,                  QPoint(4 , 2)}
 };
 
 const QMap<QRgb, QString> MapManager::colorToEnemy=
@@ -59,7 +91,8 @@ const QMap<QRgb, QString> MapManager::colorToEnemy=
 };
 
 MapManager::MapManager()
-    : 	m_cellSprite(":/res/map16x16.png")
+    /* 2024-12-06 KGD: Changed from map16x16 to the FinalMapItems16x16 that has new items, such as the flag */
+    : 	m_cellSprite(":/res/FinalMapItems16x16.png")
 {
 
 }
@@ -155,7 +188,8 @@ void MapManager::setMapSize(const int new_size)
 
 void MapManager::updateMapSketch(const int current_level)
 {
-    m_mapSketch.load("://res/sketch_world1-1.png");
+    /* 2024-12-06 KGD: Changed from sketch_world1 to the finalMap that has new pixels to add the flag */
+    m_mapSketch.load("://res/finalMap.png");
 }
 
 QRgb MapManager::getMapSketchPixel(const int x, const int y) const
@@ -181,7 +215,7 @@ void MapManager::convertFromSketch(int currentLevel)
 
             if (b < map_height)
             {
-                setMapCell(a, b, GLOBAL::CELL_TYPE::Empty);
+               setMapCell(a, b, GLOBAL::CELL_TYPE::Empty);
                 if(MapManager::colorToCellMap.contains(pixel))
                 {
                     setMapCell(a, b, MapManager::colorToCellMap[pixel]);

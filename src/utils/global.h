@@ -22,7 +22,18 @@ enum CELL_TYPE{
     Wall0,
     Wall1,
     QuestionBlock0,
-    QuestionBlock0M
+    QuestionBlock0M,
+    /* 2024-12-06 KGD: Created cell types that are used to create the game flag*/
+    Flag,
+    TopFlag,
+    TopMFlag,
+    TopLFlag,
+    MidFlag,
+    MidMFlag,
+    MidLFlag,
+    BottomFlag,
+    MBottomFlag,
+    LBottomFlag
 };
 
 static QString cellTypeToString(CELL_TYPE t)
@@ -42,6 +53,12 @@ static QString cellTypeToString(CELL_TYPE t)
     else if(t == Wall1)
     {
         return QString("Wall1");
+    }
+    /* 2024-12-06 KGD: if cell type is equal to flag, returns qstring value, may not need*/
+
+    else if(t == Flag)
+    {
+        return QString("Flag");
     }
     else
     {
@@ -91,9 +108,12 @@ static constexpr const int ENTER_KEY       = 9;
 static constexpr const int R_KEY           = 10;
 static constexpr const int Z_KEY           = 11;
 
-static constexpr const int COUNT_OF_KEYS   = 12;
-
+/* 2024-11-25 PDH: added shift key */
+static constexpr const int SHIFT_KEY       = 12;
 static constexpr const int P_KEY           = 13;  //NAC: New P key constant for the pause function
+
+static constexpr const int COUNT_OF_KEYS   = 14;
+
 
 static const QMap<int, int> KeysMapper =
 {
@@ -110,7 +130,9 @@ static const QMap<int, int> KeysMapper =
     {static_cast<int>(Qt::Key_Return),ENTER_KEY},
     {static_cast<int>(Qt::Key_R),     R_KEY},
     {static_cast<int>(Qt::Key_Z),     Z_KEY},
-    {static_cast<int>(Qt::Key_P),     P_KEY}   // NAC: Mapping the P key
+    {static_cast<int>(Qt::Key_P),     P_KEY},   // NAC: Mapping the P key
+    /* 2024-11-25 PDH: mapped shift key */
+    {static_cast<int>(Qt::Key_Shift), SHIFT_KEY}
 };
 }
 
