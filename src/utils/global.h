@@ -22,7 +22,21 @@ enum CELL_TYPE{
     Wall0,
     Wall1,
     QuestionBlock0,
-    QuestionBlock0M
+    QuestionBlock0M,
+    /* 2024-12-06 KGD: Created cell types that are used to create the game flag*/
+    Flag,
+    TopFlag,
+    TopMFlag,
+    TopLFlag,
+    MidFlag,
+    MidMFlag,
+    MidLFlag,
+    BottomFlag,
+    MBottomFlag,
+    LBottomFlag,
+    /* 2024-12-06 KGD: Created cell types that are used to create the wall barrier/kill method before the game flag*/
+    FlagEntity,
+    entity
 };
 
 static QString cellTypeToString(CELL_TYPE t)

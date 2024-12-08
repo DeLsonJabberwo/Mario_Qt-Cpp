@@ -1,6 +1,8 @@
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 HEADERS += \
+    end_screen.h \
+    restart_screen.h \
     src/entities/block.h \
     src/entities/brick.h \
     src/entities/enemy.h \
@@ -17,6 +19,8 @@ HEADERS += \
     src/view.h
 
 SOURCES += \
+    end_screen.cpp \
+    restart_screen.cpp \
     src/entities/block.cpp \
     src/entities/brick.cpp \
     src/entities/enemy.cpp \
@@ -34,3 +38,10 @@ SOURCES += \
 
 RESOURCES += \
     resources.qrc
+
+FORMS += \
+    end_screen.ui \
+    restart_screen.ui
+
+DISTFILES += \
+    res/gameOver.png
