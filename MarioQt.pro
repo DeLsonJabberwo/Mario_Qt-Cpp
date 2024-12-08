@@ -1,5 +1,5 @@
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
-
+QT += multimedia
 HEADERS += \
     end_screen.h \
     restart_screen.h \

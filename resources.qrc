@@ -11,5 +11,7 @@
         <file>res/endScreen1.jpg</file>
         <file>res/FinalMapItems16x16.png</file>
         <file>res/finalMap.png</file>
+        <file>res/sounds/jump.wav</file>
+        <file>res/sounds/music.ogg</file>
     </qresource>
 </RCC>
