@@ -626,5 +626,5 @@ QRect Mario::hitBox()
 
 bool Mario::isDead() const
 {
-    return m_dead; // Use your existing logic for Mario's death
+    return m_dead; 
 }

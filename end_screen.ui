@@ -16,7 +16,7 @@
   <property name="styleSheet">
    <string notr="true">QDialog{ image: url(:/res/endScreen1.jpg) };</string>
   </property>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="restartButton">
    <property name="geometry">
     <rect>
      <x>110</x>
@@ -32,7 +32,7 @@
     <string>Restart</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="exitButton">
    <property name="geometry">
     <rect>
      <x>450</x>

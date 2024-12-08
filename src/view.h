@@ -15,6 +15,10 @@ signals:
 private:
     GameScene* m_gameScene;
 
+private slots:
+    void showRestartScreen();  //NAC: Slot to open the restart screen
+    void showEndScreen(); //NAC: Slot to open the end screen
+
     // QWidget interface
 protected:
     virtual void keyReleaseEvent(QKeyEvent *event) override;
