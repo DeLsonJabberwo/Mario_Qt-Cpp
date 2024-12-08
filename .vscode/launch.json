@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/noelc/OneDrive/Documents/GitHub/Mario_Qt-Cpp/Mario_Qt-Cpp/src/entities",
-      "program": "c:/Users/noelc/OneDrive/Documents/GitHub/Mario_Qt-Cpp/Mario_Qt-Cpp/src/entities/build/Debug/outDebug",
+      "cwd": "c:/Users/noelc/OneDrive/Documents/GitHub/Mario_Qt-Cpp/Mario_Qt-Cpp",
+      "program": "c:/Users/noelc/OneDrive/Documents/GitHub/Mario_Qt-Cpp/Mario_Qt-Cpp/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

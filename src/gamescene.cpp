@@ -13,7 +13,7 @@
 
 GameScene::GameScene(QObject *parent)
     : QGraphicsScene(parent), m_mostRightX(200000),
-      m_loopSpeed(int(1000.0f/GLOBAL::FPS))
+    m_loopSpeed(int(1000.0f/GLOBAL::FPS))
 {
 
     m_mapManager.updateMapSketch(0);
@@ -28,6 +28,14 @@ GameScene::GameScene(QObject *parent)
     m_mouse = new MouseStatus();
     setSceneRect(0,0, GLOBAL::SCREEN_SIZE.width(), GLOBAL::SCREEN_SIZE.height());
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
+
+    //connecting
+    connect(this, &GameScene::restart, this, &GameScene::resetGameScene);
+
+    //NAC:
+    connect(&m_timer, &QTimer::timeout, this, &GameScene::advance);
+    initializeGame();  // Initialize the game state at startup
+
     m_timer.start(int(1000.0f/FPS));
     m_elapsedTimer.start();
 
@@ -47,20 +55,19 @@ void GameScene::loop()
     while( m_loopTime > m_loopSpeed)
     {
         const float elapsedTime = 1.0f/FPS;
-//input
+        //input
         handlePlayerInput();
         m_mario->update(elapsedTime, *this);
-//update
+        //update
 
-        if (m_mario->isDead()) 
+        if (m_mario->isDead())
         {
-            //call the key pressed event handler handlePlayerInput instead of the resetGameScene
-            m_keys[GLOBAL::R_KEY]->m_released = true;
-            handlePlayerInput();
-            //resetGameScene();
-            return; 
+            //NAC: use signal to let the game know that the player is dead
+            emit playerDied();
+            m_timer.stop();
+            return;
         }
-        
+
         for(int i = 0; i < Block::BLOCKS.size(); ++i)
         {
             Block::BLOCKS.at(i)->update(elapsedTime);
@@ -73,7 +80,7 @@ void GameScene::loop()
         {
             Enemy::ENEMIES.at(i)->update(getCameraX(*m_mario), elapsedTime);
         }
-//draw
+        //draw
         clear();
         setBackgroundBrush(QBrush(QColor(Qt::black)));
         float cameraPosX = std::clamp(getCameraX(*m_mario), 0.0f, m_mostRightX);
@@ -117,16 +124,21 @@ void GameScene::loop()
     }
 }
 
+
+
 void GameScene::handlePlayerInput()
 {
     if(m_keys[GLOBAL::R_KEY]->m_released || m_keys[GLOBAL::ENTER_KEY]->m_released)
     {
-        resetGameScene();
+        //resetGameScene();
+        emit restart();
+        //NAC
     }
     if(m_keys[GLOBAL::Z_KEY]->m_released)
     {
         //renderGameScene();//uncomment if you want to make screenshots
     }
+
 }
 
 void GameScene::resetKeyStatus()
@@ -138,7 +150,19 @@ void GameScene::resetKeyStatus()
     m_mouse->m_released = false;
 }
 
+
+//NAC
 void GameScene::resetGameScene()
+{
+    qDebug() << "GameScene::resetGameScene called!";
+    qDebug() << "GameScene address:" << this;
+
+    clear();           // Clear the scene if necessary
+    initializeGame();  // Call the setup function
+}
+
+//NAC
+void GameScene::initializeGame()
 {
     Block::BLOCKS.clear();
     Mushroom::MUSHROOMS.clear();
@@ -213,4 +237,25 @@ void GameScene::mouseReleaseEvent(QGraphicsSceneMouseEvent *event)
     m_mouse->m_pressed = false;
     m_mouse->m_released = true;
     QGraphicsScene::mouseReleaseEvent(event);
+}
+
+
+//NAC
+void GameScene::stopTimer() {
+    m_timer.stop();
+}
+
+
+//NAC
+void GameScene::startTimer()
+{
+    m_timer.start(m_loopSpeed);
+}
+
+
+//NAC
+void GameScene::restartGameKeyPressed()
+{
+    m_keys[GLOBAL::R_KEY]->m_released = true;
+    handlePlayerInput();
 }

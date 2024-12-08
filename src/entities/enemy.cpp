@@ -38,3 +38,4 @@ bool Enemy::isAlive() const
 {
     return m_isAlive;
 }
+

@@ -191,14 +191,22 @@ void Mario::chooseAnimation()
 void Mario::update(float elapsedTime)
 {
     m_velocityY += GLOBAL::GRAVITY;
-    // Drag
-    if (m_onGround)
+    //12-03-2024 DS: made sure it applies when running
+    if (m_onGround && !m_runMode)
     {
-        m_velocityX += -DRAG_VALUE * m_velocityX * elapsedTime;
-
-        if (std::fabs(m_velocityX) < 0.01f)
+        if (std::fabs(m_velocityX) > 0.0f)
         {
-            m_velocityX = 0.0f;
+            float frictionEffect = FRICTION_VALUE * elapsedTime; //12-03-2024 DS: Instantiated the friction value
+
+            //12-03-2024 DS: Applied friction symmetrically
+            if (m_velocityX > 0) // For Moving right
+            {
+                m_velocityX = std::max(0.0f, m_velocityX - frictionEffect);
+            }
+            else if (m_velocityX < 0) // For Moving left
+            {
+                m_velocityX = std::min(0.0f, m_velocityX + frictionEffect);
+            }
         }
     }
 
@@ -255,6 +263,8 @@ void Mario::update(float elapsedTime, GameScene &scene)
                                 scene.keys(GLOBAL::SPACE_KEY)->m_held;
         bool crouchingPressed = scene.keys(GLOBAL::S_KEY)->m_held ||
                                 scene.keys(GLOBAL::DOWN_ARROW_KEY)->m_held;
+        /* 2024-11-25 PDH: mapped shift to sprint bool */
+        bool sprintingPressed = scene.keys(GLOBAL::SHIFT_KEY)->m_held;
 
         if(leftPressed)
         {
@@ -300,6 +310,15 @@ void Mario::update(float elapsedTime, GameScene &scene)
         else
         {
             m_crouchning = false;
+        }
+        /* 2024-11-25 PDH: logic for run mode with shift key */
+        if(sprintingPressed && (rightPressed || leftPressed))
+        {
+            m_runMode = true;
+        }
+        else
+        {
+            m_runMode = false;
         }
     }
 
@@ -511,6 +530,7 @@ void Mario::collideWithEnemy(Enemy *enemy)
             }else if(enemy->isAlive() && !m_hurt)
             {
                 setHurt();
+                delete enemy;
             }
 
         }
@@ -526,11 +546,13 @@ void Mario::collideWithEnemy(Enemy *enemy)
             {
                 // Trigger the custom action for flagEntity (e.g., game over sequence)
                 triggerEndScreen();
+                delete enemy;
                 // No need to proceed with further collision logic for flagEntity
                 //qDebug()<<"Hit flag";
                 return;
             }else if(enemy->isAlive() && !m_hurt)
             {
+                delete enemy;
                 setHurt();
             }
         }
@@ -638,7 +660,7 @@ QRect Mario::hitBox()
 
 bool Mario::isDead() const
 {
-    return m_dead; // Use your existing logic for Mario's death
+    return m_dead; 
 }
 
 
