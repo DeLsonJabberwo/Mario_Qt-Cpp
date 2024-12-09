@@ -151,8 +151,8 @@ void GameScene::resetKeyStatus()
 //NAC
 void GameScene::resetGameScene()
 {
-    qDebug() << "GameScene::resetGameScene called!";
-    qDebug() << "GameScene address:" << this;
+    //qDebug() << "GameScene::resetGameScene called!";
+    //qDebug() << "GameScene address:" << this;
 
     initializeGame();  // Call the setup function
 }

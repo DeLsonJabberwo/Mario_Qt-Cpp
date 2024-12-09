@@ -539,7 +539,7 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 // Trigger the custom action for flagEntity (e.g., game over sequence)
                 triggerEndScreen();
                 Enemy::ENEMIES.clear(); //NAC: barrier has multiple entities so we need to clear them all on contact
-                qDebug()<<"Hit flag";
+                //qDebug()<<"Hit flag";
                 return;
             }else if(enemy->isAlive() && !m_hurt)
             {
@@ -647,7 +647,7 @@ bool Mario::isDead() const
 }
 
 
-/* 2024-12-08 NAC: This function in View.cpp calls */
+/* 2024-12-08 NAC: This function in View.cpp calls the End screen*/
 void Mario::triggerEndScreen()
 {
     View vw;
