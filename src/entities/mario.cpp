@@ -504,14 +504,6 @@ void Mario::collideWithEnemy(Enemy *enemy)
     float CollideY;
     float shrinkPixel = 5.f, shrinkFactor = 0.9f;//For one tile row, column to avoid block
 
-    // if (enemy->getType() == Enemy::Type::flagEntity)
-    // {
-    //     // Trigger the custom action for flagEntity (e.g., game over sequence)
-    //     //triggerEndScreen();
-    //     // No need to proceed with further collision logic for flagEntity
-    //     qDebug()<<"Hit flag";
-    //     return;
-    // }
     //X-axis
     if (m_velocityX <= 0.0f) // Moving Left
     {
@@ -520,17 +512,16 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(CollideX, position().y()+hitBox().height()))
         {
+            //NAC: if the enemy is flagEntity then do not deal damage
             if (enemy->getType() == Enemy::Type::flagEntity)
             {
-                // Trigger the custom action for flagEntity (e.g., game over sequence)
                 //triggerEndScreen();
-                // No need to proceed with further collision logic for flagEntity
+                Enemy::ENEMIES.clear(); //NAC: barrier has multiple entities so we need to clear them all on contact
                 //qDebug()<<"Hit flag";
                 return;
             }else if(enemy->isAlive() && !m_hurt)
             {
                 setHurt();
-                delete enemy;
             }
 
         }
@@ -542,17 +533,16 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(CollideX, position().y()+hitBox().height()))
         {
+            //NAC: if the enemy is flagEntity then do not deal damage
             if (enemy->getType() == Enemy::Type::flagEntity)
             {
                 // Trigger the custom action for flagEntity (e.g., game over sequence)
                 triggerEndScreen();
-                delete enemy;
-                // No need to proceed with further collision logic for flagEntity
-                //qDebug()<<"Hit flag";
+                Enemy::ENEMIES.clear(); //NAC: barrier has multiple entities so we need to clear them all on contact
+                qDebug()<<"Hit flag";
                 return;
             }else if(enemy->isAlive() && !m_hurt)
             {
-                delete enemy;
                 setHurt();
             }
         }
@@ -565,14 +555,7 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(position().x()+shrinkFactor*hitBox().width() , CollideY))
         {
-            if (enemy->getType() == Enemy::Type::flagEntity)
-            {
-                // Trigger the custom action for flagEntity (e.g., game over sequence)
-                //triggerEndScreen();
-                // No need to proceed with further collision logic for flagEntity
-                //qDebug()<<"Hit flag";
-                return;
-            }else if(enemy->isAlive()&& !m_hurt)
+            if(enemy->isAlive()&& !m_hurt)
             {
                 setHurt();
             }
@@ -664,10 +647,11 @@ bool Mario::isDead() const
 }
 
 
+/* 2024-12-08 NAC: This function in View.cpp calls */
 void Mario::triggerEndScreen()
 {
     View vw;
-    // Example: Triggering game-over actions
     vw.callThis();
-    // Or any other custom logic specific to the flagEntity
+    //m_gameScene->stopTimer();
+    resetStatus();
 }

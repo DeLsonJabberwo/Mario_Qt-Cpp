@@ -15,6 +15,7 @@ signals:
 
 private:
     GameScene* m_gameScene;
+    Mario* m_mario;
 
 private slots:
     void showRestartScreen();  //NAC: Slot to open the restart screen
@@ -23,7 +24,6 @@ private slots:
     // QWidget interface
 protected:
     virtual void keyReleaseEvent(QKeyEvent *event) override;
-    void triggerKeyReleaseEvent(Qt::Key key);
 };
 
 #endif // VIEW_H

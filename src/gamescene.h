@@ -38,14 +38,18 @@ public:
     void restartGame();
     void restartGameKeyPressed(); //NAC: calls handlePlayerInput()
 
+    void playerIsDead(); //NAC:
+
+    void gameEnded(); //NAC:
+
 
 
 
     //NAC: Made it public so that it can be called using the ui
     //void resetGameScene();
 signals:
-    void playerDied();//NAC: 
-    void restart();
+    void playerDied();//NAC: This is a signal that communicates that the player died and to execute the restart screen
+    void gameFinished();//NAC: This is a signal that signals that the game finished and executes the end screen 
 
 public slots:
     void resetGameScene();

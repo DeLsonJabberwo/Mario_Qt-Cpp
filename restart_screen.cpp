@@ -16,7 +16,7 @@ Restart_Screen::Restart_Screen(GameScene *gameScene, QWidget *parent)
             this, &Restart_Screen::onExitButton);
 
     GameScene gs;
-    connect(m_ui->restartButton, &QPushButton::clicked, &gs, &GameScene::restartGameKeyPressed);
+    //connect(m_ui->restartButton, &QPushButton::clicked, &gs, &GameScene::restartGameKeyPressed);
 
 }
 

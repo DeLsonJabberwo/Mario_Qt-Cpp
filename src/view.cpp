@@ -15,7 +15,6 @@ View::View()
 
     //NAC: Trigger showRestartScreen with signal playerDied
     connect(m_gameScene, &GameScene::playerDied, this, &View::showRestartScreen);
-
 }
 
 
@@ -37,9 +36,8 @@ void View::callThis()
 void View::showRestartScreen()
 {
 
-    //m_gameScene->stopTimer();
+    m_gameScene->stopTimer();
     Restart_Screen* restartScreen = new Restart_Screen(m_gameScene, this);
-    //m_gameScene->stopTimer();
     restartScreen->exec();
 }
 

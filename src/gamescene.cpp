@@ -29,9 +29,6 @@ GameScene::GameScene(QObject *parent)
     setSceneRect(0,0, GLOBAL::SCREEN_SIZE.width(), GLOBAL::SCREEN_SIZE.height());
     connect(&m_timer, &QTimer::timeout, this, &GameScene::loop);
 
-    //connecting
-    connect(this, &GameScene::restart, this, &GameScene::resetGameScene);
-
     //NAC:
     connect(&m_timer, &QTimer::timeout, this, &GameScene::advance);
     initializeGame();  // Initialize the game state at startup
@@ -63,8 +60,9 @@ void GameScene::loop()
         if (m_mario->isDead())
         {
             //NAC: use signal to let the game know that the player is dead
-            emit playerDied();
-            m_timer.stop();
+            Enemy::ENEMIES.clear();
+            //m_mario->resetStatus();
+            playerIsDead();
             return;
         }
 
@@ -130,8 +128,7 @@ void GameScene::handlePlayerInput()
 {
     if(m_keys[GLOBAL::R_KEY]->m_released || m_keys[GLOBAL::ENTER_KEY]->m_released)
     {
-        //resetGameScene();
-        emit restart();
+        resetGameScene();
         //NAC
     }
     if(m_keys[GLOBAL::Z_KEY]->m_released)
@@ -157,16 +154,17 @@ void GameScene::resetGameScene()
     qDebug() << "GameScene::resetGameScene called!";
     qDebug() << "GameScene address:" << this;
 
-    clear();           // Clear the scene if necessary
     initializeGame();  // Call the setup function
 }
 
 //NAC
 void GameScene::initializeGame()
 {
+    clear(); 
     Block::BLOCKS.clear();
     Mushroom::MUSHROOMS.clear();
     Enemy::ENEMIES.clear();
+
     m_mapManager.updateMapSketch(0);
     m_mapManager.convertFromSketch(0);
     m_mario->resetStatus();
@@ -258,4 +256,14 @@ void GameScene::restartGameKeyPressed()
 {
     m_keys[GLOBAL::R_KEY]->m_released = true;
     handlePlayerInput();
+}
+
+void GameScene::playerIsDead()
+{
+    emit playerDied();
+}
+
+void GameScene::gameEnded()
+{
+    emit gameFinished();
 }
