@@ -12,6 +12,8 @@ public:
     static const QMap<QRgb, GLOBAL::CELL_TYPE> colorToCellMap;
     static const QMap<GLOBAL::CELL_TYPE, QPoint> cellToPointOfSpriteMap;
     static const QMap<QRgb, QString> colorToEnemy;
+    /* 2024-12-06 KGD: Created way to identify what pixels belong to the flag entity*/
+    static const QMap<QRgb, QString> colorToEntity;
     MapManager();
 
     int getMapSketchHeight() const;

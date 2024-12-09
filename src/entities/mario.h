@@ -33,6 +33,10 @@ public:
     void resetStatus();
     void setMaxX(int maxX);
     bool isDead() const;
+    bool isActive() const;
+    void triggerEndScreen();
+
+
 private:
     void clampVelocities(float elapsedTime);
     void checkCollisionWithBlocks();
@@ -62,6 +66,8 @@ private:
     bool m_collideWithBlock;
     Animator m_animator;
     float m_maxX;
+
+    GameScene* m_gameScene;
 
 };
 

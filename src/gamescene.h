@@ -28,7 +28,31 @@ class GameScene : public QGraphicsScene
 public:
     explicit GameScene(QObject *parent = nullptr);
     KeyStatus* keys(int keyCode);
+    void pauseGame();  // Function to pause the game
+    void resumeGame(); // Function to resume the game
+    bool m_paused = false;
+
+    void stopTimer(); //NAC: to stop or pause the game
+
+    void startTimer(); //NAC: to resume the game timer
+    void restartGame();
+    void restartGameKeyPressed(); //NAC: calls handlePlayerInput()
+
+    void playerIsDead(); //NAC:
+
+    void gameEnded(); //NAC:
+
+
+
+
+    //NAC: Made it public so that it can be called using the ui
+    //void resetGameScene();
 signals:
+    void playerDied();//NAC: This is a signal that communicates that the player died and to execute the restart screen
+    void gameFinished();//NAC: This is a signal that signals that the game finished and executes the end screen 
+
+public slots:
+    void resetGameScene();
 
 private slots:
     void loop();
@@ -36,7 +60,10 @@ private slots:
 private:
     void handlePlayerInput();
     void resetKeyStatus();
-    void resetGameScene();
+    //void resetGameScene();
+
+    void initializeGame();
+
     void renderGameScene();
     float getCameraX(const Mario& mario);
     float m_mostRightX;
@@ -48,6 +75,8 @@ private:
     QElapsedTimer m_elapsedTimer;
     float m_deltaTime = 0.0f, m_loopTime = 0.0f;
     const float m_loopSpeed;
+
+    //bool m_paused = false;
 
     MapManager m_mapManager;
     Mario *m_mario;

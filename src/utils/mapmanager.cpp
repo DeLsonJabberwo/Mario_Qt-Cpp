@@ -33,7 +33,7 @@ const QMap<QRgb, QPoint> MapManager::colorToPointOfSpriteMap={
     {qRgb(124,  187,   207), QPoint(7, 3 )},
     {qRgb(47,  54,   153), QPoint(6, 2 )},
     {qRgb(112,  154,   209), QPoint(5, 2 )},
-    {qRgb(10,  43,   51), QPoint(4, 2 )}
+    {qRgb(10,  43,   51), QPoint(4, 2 )},
 };
 
 const QMap<QRgb, GLOBAL::CELL_TYPE> MapManager::colorToCellMap=
@@ -58,7 +58,9 @@ const QMap<QRgb, GLOBAL::CELL_TYPE> MapManager::colorToCellMap=
     {qRgb(124,  187,   207), GLOBAL::CELL_TYPE::MidLFlag                 },
     {qRgb(47,  54,   153), GLOBAL::CELL_TYPE::BottomFlag                 },
     {qRgb(112,  154,   209), GLOBAL::CELL_TYPE::MBottomFlag                 },
-    {qRgb(10,  43,   51), GLOBAL::CELL_TYPE::LBottomFlag                 }
+    {qRgb(10,  43,   51), GLOBAL::CELL_TYPE::LBottomFlag                 },
+    {qRgb(111, 49, 152), GLOBAL::CELL_TYPE::entity                 }
+
 };
 
 const QMap<GLOBAL::CELL_TYPE, QPoint> MapManager::cellToPointOfSpriteMap=
@@ -88,6 +90,12 @@ const QMap<GLOBAL::CELL_TYPE, QPoint> MapManager::cellToPointOfSpriteMap=
 const QMap<QRgb, QString> MapManager::colorToEnemy=
 {
 {qRgb(182, 73 ,   0), "Goomba"                  }
+};
+
+/* 2024-12-06 KGD: Created color points and Qpoints that will be used to create entity infront of flag */
+const QMap<QRgb, QString> MapManager::colorToEntity=
+{
+    {qRgb(111, 49 ,   152), "flagEntity"                  }
 };
 
 MapManager::MapManager()
@@ -188,8 +196,8 @@ void MapManager::setMapSize(const int new_size)
 
 void MapManager::updateMapSketch(const int current_level)
 {
-    /* 2024-12-06 KGD: Changed from sketch_world1 to the finalMap that has new pixels to add the flag */
-    m_mapSketch.load("://res/finalMap.png");
+    /* 2024-12-06 KGD: Changed from sketch_world1 to the finalMap4 that has new pixels to add the flag */
+    m_mapSketch.load("://res/finalMap4.png");
 }
 
 QRgb MapManager::getMapSketchPixel(const int x, const int y) const
@@ -226,6 +234,11 @@ void MapManager::convertFromSketch(int currentLevel)
                 if(MapManager::colorToEnemy.contains(pixel))
                 {
                     Enemy::CreateEnemy(Enemy::Type::Goomba, QPointF(a*GLOBAL::TILE_SIZE.width(), (b - map_height)*GLOBAL::TILE_SIZE.height() ));
+                }
+                /* 2024-12-06 KGD: used to determine if the pixels belong to the flag entity and then create said entity*/
+                else if(MapManager::colorToEntity.contains(pixel))
+                {
+                    Enemy::CreateEnemy(Enemy::Type::flagEntity, QPointF(a*GLOBAL::TILE_SIZE.width(), (b - map_height)*GLOBAL::TILE_SIZE.height() ));
                 }
             }
         }

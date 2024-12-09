@@ -5,6 +5,7 @@
 #include "mushroom.h"
 #include "enemy.h"
 #include <QGraphicsPixmapItem>
+#include "src/view.h"
 
 //test
 Mario::Mario()
@@ -511,7 +512,14 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(CollideX, position().y()+hitBox().height()))
         {
-            if(enemy->isAlive() && !m_hurt)
+            //NAC: if the enemy is flagEntity then do not deal damage
+            if (enemy->getType() == Enemy::Type::flagEntity)
+            {
+                //triggerEndScreen();
+                Enemy::ENEMIES.clear(); //NAC: barrier has multiple entities so we need to clear them all on contact
+                //qDebug()<<"Hit flag";
+                return;
+            }else if(enemy->isAlive() && !m_hurt)
             {
                 setHurt();
             }
@@ -525,7 +533,15 @@ void Mario::collideWithEnemy(Enemy *enemy)
                 ||
                 enemy->hitBox().contains(CollideX, position().y()+hitBox().height()))
         {
-            if(enemy->isAlive() && !m_hurt)
+            //NAC: if the enemy is flagEntity then do not deal damage
+            if (enemy->getType() == Enemy::Type::flagEntity)
+            {
+                // Trigger the custom action for flagEntity (e.g., game over sequence)
+                triggerEndScreen();
+                Enemy::ENEMIES.clear(); //NAC: barrier has multiple entities so we need to clear them all on contact
+                //qDebug()<<"Hit flag";
+                return;
+            }else if(enemy->isAlive() && !m_hurt)
             {
                 setHurt();
             }
@@ -559,6 +575,7 @@ void Mario::collideWithEnemy(Enemy *enemy)
             }
         }
     }
+
 }
 
 void Mario::setAnimatationState(QString state)
@@ -626,5 +643,15 @@ QRect Mario::hitBox()
 
 bool Mario::isDead() const
 {
-    return m_dead; // Use your existing logic for Mario's death
+    return m_dead; 
+}
+
+
+/* 2024-12-08 NAC: This function in View.cpp calls the End screen*/
+void Mario::triggerEndScreen()
+{
+    View vw;
+    vw.callThis();
+    //m_gameScene->stopTimer();
+    resetStatus();
 }

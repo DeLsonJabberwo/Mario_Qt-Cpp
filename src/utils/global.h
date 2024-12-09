@@ -33,7 +33,10 @@ enum CELL_TYPE{
     MidLFlag,
     BottomFlag,
     MBottomFlag,
-    LBottomFlag
+    LBottomFlag,
+    /* 2024-12-06 KGD: Created cell types that are used to create the wall barrier/kill method before the game flag*/
+    FlagEntity,
+    entity
 };
 
 static QString cellTypeToString(CELL_TYPE t)
@@ -53,12 +56,6 @@ static QString cellTypeToString(CELL_TYPE t)
     else if(t == Wall1)
     {
         return QString("Wall1");
-    }
-    /* 2024-12-06 KGD: if cell type is equal to flag, returns qstring value, may not need*/
-
-    else if(t == Flag)
-    {
-        return QString("Flag");
     }
     else
     {
@@ -111,8 +108,11 @@ static constexpr const int Z_KEY           = 11;
 /* 2024-11-25 PDH: added shift key */
 static constexpr const int SHIFT_KEY       = 12;
 
+/* 2024-12-05 NAC: New P key constant for the pause function */
+static constexpr const int P_KEY           = 13;
 
-static constexpr const int COUNT_OF_KEYS   = 13;
+static constexpr const int COUNT_OF_KEYS   = 14;
+
 
 static const QMap<int, int> KeysMapper =
 {
@@ -129,6 +129,9 @@ static const QMap<int, int> KeysMapper =
     {static_cast<int>(Qt::Key_Return),ENTER_KEY},
     {static_cast<int>(Qt::Key_R),     R_KEY},
     {static_cast<int>(Qt::Key_Z),     Z_KEY},
+
+    /* 2024-12-05 NAC: Mapping the P key*/
+    {static_cast<int>(Qt::Key_P),     P_KEY},
     /* 2024-11-25 PDH: mapped shift key */
     {static_cast<int>(Qt::Key_Shift), SHIFT_KEY}
 };

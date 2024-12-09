@@ -22,6 +22,11 @@ void Enemy::CreateEnemy(Type type, QPointF position)
     {
         Goomba* goomba = new Goomba(position.x(), position.y());
     }
+    /* 2024-12-06 KGD: Added method to create entities at the flag used to call endScreen GUI*/
+    else if (type == Type::flagEntity)
+    {
+        flagEntity* flagentity = new flagEntity(position.x(), position.y());
+    }
 }
 
 void Enemy::setAlive(bool on)
@@ -33,3 +38,4 @@ bool Enemy::isAlive() const
 {
     return m_isAlive;
 }
+
